@@ -1,0 +1,80 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>The HTML5 Herald</title>
+  <meta name="description" content="Bicommerce Support PriceList2CSV and CSV2PriceList">
+  <meta name="author" content="BorisPot">
+
+</head>
+
+<style>
+	table{
+		width: 70%;
+		margin-left: 15%;
+		text-align: center;
+	}
+	table, th , td {
+	  border: 1px solid grey;
+	  border-collapse: collapse;
+	  padding: 5px;
+	}
+	table tr:nth-child(odd) {
+	  background-color: #f1f1f1;
+	}
+	table tr:nth-child(even) {
+	  background-color: #ffffff;
+	}
+</style>
+
+<body>
+<div id="app">
+    <center>
+    	<h1>Price Lists</h1>
+    </center>
+    <hr>
+    <table>
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Name</th>
+				<th>Date Created</th>
+				<th>Date Modified</th>
+				<th>Import From CSV</th>
+				<th>Export To CSV</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr v-for="item in priceLists">
+				<td>{{item.id}}</td>
+				<td>{{item.name}}</td>
+				<td>{{item.date_created}}</td>
+				<td>{{item.date_modified}}</td>
+				<td> 
+					<input type = "file" v-bind:id = "'fileInput'+item.id" style=" float:left; margin-left:15px; "/> 
+					<input type = "button" value = "Update From File" v-on:click = "onUpdatePriceList(item.id)" style=" float:right; margin-right:15px; " /> 
+				</td>
+				<td> <input type = "button" value = "Export To CSV" v-on:click = "onExportPriceListToCSV(item.id)" /> </td>
+			</tr>
+		</tbody>
+    </table>
+
+    <br>
+    <center>
+    	<h1>Create Price List</h1>
+    <hr>
+    	<input type = "text" v-model = "newPriceListname" placeholder="New price list name" />
+    	<input type = "file" id = "newPriceListFile"/>
+    	<input type = "button" value = "Create Price List" v-on:click = "onCreateNewPriceList()" />
+    </center>
+</div>
+</body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="js/papaparse.js"></script>
+<script src="js/main.js"></script>
+</html>
